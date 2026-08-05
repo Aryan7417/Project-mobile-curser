@@ -19,7 +19,7 @@ const createWindow = () => {
   });
 
   // Temporary blank page
-  mainWindow.loadURL("data:text/html,<h1>CursorMouse Desktop</h1>");
+  mainWindow.loadURL("data:text/html,<h1>CursorMouse Desktop and testing....</h1>");
 
   mainWindow.on("closed", () => {
     mainWindow = null;
