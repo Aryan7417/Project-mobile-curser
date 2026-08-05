@@ -1,5 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
+import '../server/servre'
+
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -19,9 +21,13 @@ function createWindow() {
     },
   });
 
+  // mainWindow.loadFile(
+  //   path.join(__dirname, "src/ui/App.html")
+  // );
+
   mainWindow.loadFile(
-    path.join(__dirname, "../ui/App.html")
-  );
+  path.join(process.cwd(), "src", "ui", "App.html")
+);
 
   mainWindow.on("closed", () => {
     mainWindow = null;
