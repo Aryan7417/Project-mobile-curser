@@ -26,6 +26,7 @@ console.log(`🔑 Pair Code      : ${pairCode}`);
 console.log("==================================");
 
 // Start Server
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Server Started Successfully`);
+  console.log(`📡 Server Address: http://172.16.51.6:${PORT}`);
 });

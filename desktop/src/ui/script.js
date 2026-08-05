@@ -11,18 +11,18 @@ const deviceElement = document.getElementById("device");
 
 // Generate Random 6 Digit Pair Code
 
-function generatePairCode() {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+// function generatePairCode() {
+//   return Math.floor(100000 + Math.random() * 900000).toString();
 
-}
+// }
 
 // Update Pair Code
 
 
-function updatePairCode() {
-  const code = generatePairCode();
-  pairCodeElement.textContent = code;
-}
+// function updatePairCode() {
+//   const code = generatePairCode();
+//   pairCodeElement.textContent = code;
+// }
 
 // Update Status
 
@@ -37,7 +37,7 @@ function updateDevice(deviceName) {
 
     deviceElement.textContent = deviceName;
 }
-
+initializeApp();
 
 // Initialize UI
 function initializeApp() {
