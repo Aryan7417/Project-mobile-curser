@@ -3,7 +3,7 @@ import path from "path";
 
 let mainWindow: BrowserWindow | null = null;
 
-const createWindow = () => {
+function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -13,31 +13,33 @@ const createWindow = () => {
     title: "CursorMouse",
 
     webPreferences: {
-      nodeIntegration: false,
+      preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
+      nodeIntegration: false,
     },
   });
 
-  // Temporary blank page
-  mainWindow.loadURL("data:text/html,<h1>CursorMouse Desktop and testing....</h1>");
+  mainWindow.loadFile(
+    path.join(__dirname, "../ui/App.html")
+  );
 
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
-};
+}
 
 app.whenReady().then(() => {
   createWindow();
-
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
 });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
+  }
+});
+
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
   }
 });
