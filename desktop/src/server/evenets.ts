@@ -1,7 +1,8 @@
 
 import { Server, Socket } from "socket.io";
 import { verifyPairCode } from "./paring";
-import { mouse } from "@nut-tree-fork/nut-js";
+//import { mouse } from "@nut-tree-fork/nut-js";
+import { mouse, Button } from "@nut-tree-fork/nut-js";
 
 export const registerSocketEvents = (io: Server) => {
   io.on("connection", (socket: Socket) => {
@@ -52,14 +53,62 @@ export const registerSocketEvents = (io: Server) => {
     });
 
     // Left Click
-    socket.on("left-click", () => {
-      console.log("🖱 Left Click");
-    });
+    // socket.on("left-click", () => {
+    //   console.log("🖱 Left Click");
+    // });
 
-    // Right Click
-    socket.on("right-click", () => {
-      console.log("🖱 Right Click");
-    });
+//     socket.on("left-click", async () => {
+//   try {
+//     await mouse.click(Button.LEFT);
+//     console.log("🖱 Left Click");
+//   } catch (error) {
+//     console.error("Left Click Error:", error);
+//   }
+// });
+
+//     // Right Click
+//     socket.on("right-click", async () => {
+//   try {
+//     await mouse.click(Button.RIGHT);
+//     console.log("🖱 Right Clickvv");
+//   } catch (error) {
+//     console.error("Right Click Error:", error);
+//   }
+// });
+
+
+// Left Click
+socket.on("left-click", async () => {
+  try {
+    console.log("🖱 Left Click");
+
+    await mouse.pressButton(Button.LEFT);
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    await mouse.releaseButton(Button.LEFT);
+
+  } catch (error) {
+    console.error("Left Click Error:", error);
+  }
+});
+
+// Right Click
+socket.on("right-click", async () => {
+  try {
+    console.log("🖱 Right Click");
+
+    await mouse.pressButton(Button.RIGHT);
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    await mouse.releaseButton(Button.RIGHT);
+
+  } catch (error) {
+    console.error("Right Click Error:", error);
+  }
+});
+
+
+
+
+
 
     // Scroll
     socket.on("scroll", (data) => {
