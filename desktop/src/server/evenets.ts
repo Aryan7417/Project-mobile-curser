@@ -1,6 +1,7 @@
 
 import { Server, Socket } from "socket.io";
 import { verifyPairCode } from "./paring";
+import { mouse } from "@nut-tree-fork/nut-js";
 
 export const registerSocketEvents = (io: Server) => {
   io.on("connection", (socket: Socket) => {
@@ -35,8 +36,19 @@ export const registerSocketEvents = (io: Server) => {
     });
 
     // Mouse Move
-    socket.on("mouse-move", (data) => {
-      console.log("🖱 Mouse Move:", data);
+    socket.on("mouse-move", async ({ dx, dy }) => {
+      try {
+        const position = await mouse.getPosition();
+
+        await mouse.move([
+          {
+            x: position.x + dx,
+            y: position.y + dy,
+          },
+        ]);
+      } catch (error) {
+        console.error("Mouse Move Error:", error);
+      }
     });
 
     // Left Click
