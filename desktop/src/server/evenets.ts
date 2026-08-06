@@ -6,6 +6,11 @@ export const registerSocketEvents = (io: Server) => {
   io.on("connection", (socket: Socket) => {
     console.log(`🟢 Device Connected: ${socket.id}`);
 
+
+    socket.onAny((event, ...args) => {
+      console.log("📨 Event Received:", event, args);
+    });
+
     // Pair Request
     socket.on("pair-request", ({ pairCode }) => {
       console.log("📱 Pair Request:", pairCode);
