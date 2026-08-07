@@ -5,10 +5,10 @@
   "main": "dist/electron/main.js",
   "type": "commonjs",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && electron .",
-    "dev": "npm run build && electron ."
-  },
+  "build": "tsc",
+  "start": "electron .",
+  "dev": "tsc && electron ."
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

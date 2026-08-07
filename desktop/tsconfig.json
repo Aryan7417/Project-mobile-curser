@@ -2,7 +2,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
+   // "module": "CommonJS",
     "moduleResolution": "Nodenext",
     "module" : "nodenext",
 
@@ -16,5 +16,5 @@
     "types": ["node", "electron"]
   },
 
-  "include": ["src/**/*"]
+  "include": ["src/ui"]
 }

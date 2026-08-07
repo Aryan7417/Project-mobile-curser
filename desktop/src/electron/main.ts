@@ -25,9 +25,11 @@ function createWindow() {
   //   path.join(__dirname, "src/ui/App.html")
   // );
 
-  mainWindow.loadFile(
-  path.join(process.cwd(), "src", "ui", "App.html")
-);
+//   mainWindow.loadFile(
+//   path.join(process.cwd(), "src", "ui", "App.tsx")
+// );
+
+mainWindow.loadURL("http://localhost:5173");
 
   mainWindow.on("closed", () => {
     mainWindow = null;
