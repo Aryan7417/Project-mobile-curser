@@ -1,6 +1,9 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import '../server/servre'
+import { ipcMain } from "electron";
+import { getPairCode } from "../server/paring";
+import { serverState } from "../store/serverState";
 
 
 let mainWindow: BrowserWindow | null = null;
@@ -25,11 +28,16 @@ function createWindow() {
   //   path.join(__dirname, "src/ui/App.html")
   // );
 
-//   mainWindow.loadFile(
-//   path.join(process.cwd(), "src", "ui", "App.tsx")
-// );
+  //   mainWindow.loadFile(
+  //   path.join(process.cwd(), "src", "ui", "App.tsx")
+  // );
 
-mainWindow.loadURL("http://localhost:5173");
+  //mainWindow.loadURL("http://localhost:5173");
+
+  
+  mainWindow.loadURL("http://localhost:5173");
+  console.log("Preload Path:", path.join(__dirname, "preload.js"));
+mainWindow.webContents.openDevTools();
 
   mainWindow.on("closed", () => {
     mainWindow = null;
@@ -37,6 +45,21 @@ mainWindow.loadURL("http://localhost:5173");
 }
 
 app.whenReady().then(() => {
+
+  ipcMain.handle("get-pair-code", () => {
+    return getPairCode();
+  });
+
+  ipcMain.handle("get-server-status", () => {
+    return "Running";
+  });
+
+  ipcMain.handle("get-dashboard-data", () => {
+  return serverState;
+});
+
+
+
   createWindow();
 });
 

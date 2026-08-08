@@ -1,20 +1,18 @@
-
 {
   "compilerOptions": {
     "target": "ES2022",
-   // "module": "CommonJS",
-    "moduleResolution": "Nodenext",
-    "module" : "nodenext",
-
+    "module": "CommonJS",
     "rootDir": "src",
     "outDir": "dist",
-
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-
     "types": ["node", "electron"]
   },
-
-  "include": ["src/ui"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/ui"
+  ]
 }

@@ -3,6 +3,7 @@ import { Server, Socket } from "socket.io";
 import { verifyPairCode } from "./paring";
 //import { mouse } from "@nut-tree-fork/nut-js";
 import { mouse, Button } from "@nut-tree-fork/nut-js";
+import { serverState } from "../store/serverState";
 
 export const registerSocketEvents = (io: Server) => {
   io.on("connection", (socket: Socket) => {
@@ -106,6 +107,16 @@ socket.on("right-click", async () => {
 });
 
 
+socket.on("pair-request", ({ pairCode }) => {
+  if (verifyPairCode(pairCode)) {
+    serverState.connected = true;
+    serverState.deviceName = "Android Phone";
+
+    socket.emit("pair-success");
+  }
+});
+
+
 
 
 
@@ -119,5 +130,7 @@ socket.on("right-click", async () => {
     socket.on("disconnect", () => {
       console.log(`🔴 Device Disconnected: ${socket.id}`);
     });
+
+    
   });
 };

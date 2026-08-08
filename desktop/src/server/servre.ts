@@ -4,9 +4,13 @@ import { initializeSocket } from "./socket";
 import { registerSocketEvents } from "./evenets";
 import { generatePairCode } from "./paring";
 import { mouse } from "@nut-tree-fork/nut-js";
+import { serverState } from "../store/serverState";
 
 
 const PORT = 3000;
+//const  pairCode = generatePairCode()
+const pairCode = generatePairCode();
+serverState.pairCode = pairCode;
 
 
 (async () => {
@@ -46,7 +50,6 @@ const io = initializeSocket(httpServer);
 registerSocketEvents(io);
 
 // Generate Pair Code
-const pairCode = generatePairCode();
 
 console.log("==================================");
 console.log("🖱 CursorMouse Desktop Server");
