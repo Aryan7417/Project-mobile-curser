@@ -59,74 +59,57 @@ const Dashboard = () => {
   const [deviceName, setDeviceName] = useState("No Device");
   const [connected, setConnected] = useState(false);
 
-  // useEffect(() => {
-  //   async function loadData() {
-  //     try {
-  //       // const code = await window.cursorMouse.getPairCode();
-  //        //const data = await window.cursorMouse.getDashboardData();
-
-  //       setStatus(data.status as "Running" | "Stopped");
-  //       setPairCode(data.pairCode);
-
-  //       setDeviceName(data.deviceName);
-  //       setConnected(data.connected);
-  //       const serverStatus = await window.cursorMouse.getServerStatus();
-
-  //       console.log("Pair Code:", code);
-  //       console.log("Status:", serverStatus);
-  //       console.log("cursorMouse =", window.cursorMouse);
-
-  //       setPairCode(code);
-  //       setStatus(serverStatus as "Running" | "Stopped");
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   }
-
-  //   loadData();
-  // }, []);
+  
 
   // useEffect(() => {
   //   async function loadData() {
+  //     console.log("cursorMouse:", window.cursorMouse);
+
   //     try {
   //       const data = await window.cursorMouse.getDashboardData();
 
+  //       console.log("Dashboard Data:", data);
+
   //       setPairCode(data.pairCode);
   //       setStatus(data.status as "Running" | "Stopped");
-
   //       setDeviceName(data.deviceName);
   //       setConnected(data.connected);
-
-  //       console.log(data);
   //     } catch (err) {
-  //       console.error(err);
+  //       console.error("ERROR:", err);
   //     }
   //   }
 
   //   loadData();
   // }, []);
 
+
+
   useEffect(() => {
-    async function loadData() {
-      console.log("cursorMouse:", window.cursorMouse);
+  async function loadData() {
+    try {
+      const data = await window.cursorMouse.getDashboardData();
 
-      try {
-        const data = await window.cursorMouse.getDashboardData();
+      console.log("📊 Dashboard Data:", data);
 
-        console.log("Dashboard Data:", data);
-
-        setPairCode(data.pairCode);
-        setStatus(data.status as "Running" | "Stopped");
-        setDeviceName(data.deviceName);
-        setConnected(data.connected);
-      } catch (err) {
-        console.error("ERROR:", err);
-      }
+      setPairCode(data.pairCode);
+      setStatus(data.status as "Running" | "Stopped");
+      setDeviceName(data.deviceName);
+      setConnected(data.connected);
+    } catch (err) {
+      console.error("Dashboard Error:", err);
     }
+  }
 
-    loadData();
-  }, []);
+  // First load
+  loadData();
 
+  // Keep dashboard updated
+  const interval = setInterval(loadData, 1000);
+
+  return () => {
+    clearInterval(interval);
+  };
+}, []);
   return (
     <div className="min-h-screen bg-[#0B0F19] p-8">
       <Header
